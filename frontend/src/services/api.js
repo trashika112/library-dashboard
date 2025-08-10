@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from "axios";
 
-const BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000/api";
+const BASE = process.env.REACT_APP_API_BASE || "https://library-dashboard-5.onrender.com";
 
 const api = axios.create({
   baseURL: BASE,
