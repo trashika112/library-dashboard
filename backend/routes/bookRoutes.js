@@ -1,5 +1,5 @@
 const express = require("express");
-const Book = require("../db/Book"); // Your Mongoose Book model
+const Book = require("../db/Book");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
@@ -19,7 +19,45 @@ function verifyToken(req, res, next) {
   });
 }
 
-// Create a new book
+// ✅ Public route - anyone can see book list
+router.get("/", async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.send(books);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+// ✅ Public route - anyone can see details of a book
+router.get("/:id", async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) return res.status(404).send({ error: "Book not found" });
+    res.send(book);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+// ✅ Public route - allow searching books without login
+router.get("/search/:key", async (req, res) => {
+  try {
+    const key = req.params.key;
+    const results = await Book.find({
+      $or: [
+        { title: { $regex: key, $options: "i" } },
+        { author: { $regex: key, $options: "i" } },
+        { genre: { $regex: key, $options: "i" } }
+      ]
+    });
+    res.send(results);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+// 🔒 Protected routes (require login)
 router.post("/add", verifyToken, async (req, res) => {
   try {
     let book = new Book(req.body);
@@ -30,28 +68,6 @@ router.post("/add", verifyToken, async (req, res) => {
   }
 });
 
-// Get all books
-router.get("/", verifyToken, async (req, res) => {
-  try {
-    const books = await Book.find();
-    res.send(books);
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
-
-// Get a book by id
-router.get("/:id", verifyToken, async (req, res) => {
-  try {
-    const book = await Book.findById(req.params.id);
-    if (!book) return res.status(404).send({ error: "Book not found" });
-    res.send(book);
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
-
-// Update a book by id
 router.put("/:id", verifyToken, async (req, res) => {
   try {
     const updatedBook = await Book.findByIdAndUpdate(
@@ -66,29 +82,11 @@ router.put("/:id", verifyToken, async (req, res) => {
   }
 });
 
-// Delete a book by id
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const deletedBook = await Book.findByIdAndDelete(req.params.id);
     if (!deletedBook) return res.status(404).send({ error: "Book not found" });
     res.send({ message: "Book deleted successfully" });
-  } catch (err) {
-    res.status(500).send({ error: err.message });
-  }
-});
-
-// Search books by title, author, or genre
-router.get("/search/:key", verifyToken, async (req, res) => {
-  try {
-    const key = req.params.key;
-    const results = await Book.find({
-      $or: [
-        { title: { $regex: key, $options: "i" } },
-        { author: { $regex: key, $options: "i" } },
-        { genre: { $regex: key, $options: "i" } }
-      ]
-    });
-    res.send(results);
   } catch (err) {
     res.status(500).send({ error: err.message });
   }
