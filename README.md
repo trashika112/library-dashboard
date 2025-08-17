@@ -91,8 +91,6 @@ npm start
 
 ---
 
-👩‍💻 Developed by 
-**Trashika S Karkera**
 
 ## 🙌 Author
 👩‍💻 Developed by **Trashika S Karkera**
