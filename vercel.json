@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "projects": [
+    {
+      "src": "backend/index.js",
+      "use": "@vercel/node",
+      "name": "library-backend",
+      "env": {
+        "MONGO_URI": "@mongo_uri",
+        "JWT_SECRET": "@jwt_secret"
+      }
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "name": "library-frontend",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ]
+}
