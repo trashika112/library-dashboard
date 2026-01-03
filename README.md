@@ -15,14 +15,15 @@ The app is fully deployed:
 
 ---
 
-## 🚀 Live Demo
-🔗 **Frontend (Vercel):** [https://your-vercel-link.vercel.app](https://your-vercel-link.vercel.app)  
-🔗 **Backend (Render):** [https://your-render-link.onrender.com](https://your-render-link.onrender.com)
+##🚀 Live Demo
+
+🔗 Frontend: https://library-dashboard-frontend.onrender.com
+🔗 Backend API: https://library-dashboard-6.onrender.com
 
 ---
 
 ## ⚙️ Tech Stack
-- **Frontend:** React.js (Vercel Deployment)  
+- **Frontend:** React.js (Render Deployment)  
 - **Backend:** Node.js + Express.js (Render Deployment)  
 - **Database:** MongoDB Atlas (Cloud)  
 - **Authentication:** JWT (JSON Web Tokens)
@@ -63,7 +64,8 @@ npm install
 
 Update `frontend/src/services/api.js` with your **Render backend URL**, e.g.:
 ```js
-const API_URL = "https://your-backend.onrender.com/api";
+const BASE = "https://library-dashboard-6.onrender.com/api";
+
 ```
 
 Run locally (optional for testing):
@@ -85,7 +87,7 @@ npm start
 ---
 
 ## 🌐 Deployment
-- **Frontend (React)** → deployed to **Vercel**  
+- **Frontend (React)** → deployed to **Render**  
 - **Backend (Express API)** → deployed to **Render**  
 - **MongoDB Atlas** → stores user + book data  
 
