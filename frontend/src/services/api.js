@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from "axios";
 
-// ✅ Use local backend in development, deployed backend in production
+
 const BASE = process.env.REACT_APP_API_BASE || "https://library-dashboard-6.onrender.com/api";
 
 // Create axios instance
