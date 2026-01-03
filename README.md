@@ -65,7 +65,7 @@ npm install
 
 Update `frontend/src/services/api.js` with your **Render backend URL**, e.g.:
 ```js
-const BASE = "https://library-dashboard-6.onrender.com/api";
+const BASE = "https://library-dashboard-6.onrender.com";
 
 ```
 
