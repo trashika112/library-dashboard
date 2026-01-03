@@ -11,10 +11,10 @@ app.use(express.json());
 app.use(cors());
 
 // Mount auth routes under /api/auth
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 // Mount book routes under /api/books
-app.use("/books", bookRoutes);
+app.use("/api/books", bookRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
